@@ -475,6 +475,13 @@ window.showLevelExam=function(){show('Závěrečný test úrovně','OVĚŘENÍ Z
 window.startLevelExam=function(){const level=document.getElementById('exam-level').value;let pool=testBank.slice();for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}window.__exam={level,chosen:pool.slice(0,10)};const chosen=window.__exam.chosen;show('Závěrečný test '+level,'ZKOUŠKA','Odpověz na všech 10 otázek.','<div class="card">'+chosen.map((q,i)=>'<div class="test-question" data-exam="'+i+'"><h4>'+(i+1)+'. '+q[0]+'</h4>'+q[1].map((o,j)=>'<label class="test-option"><input type="radio" name="exam-'+i+'" value="'+j+'"><span>'+o+'</span></label>').join('')+'</div>').join('')+'<button class="btn primary" onclick="finishLevelExam()">Vyhodnotit test</button><p id="exam-result" class="feedback"></p></div>','exam-active-view')};
 window.finishLevelExam=function(){const ex=window.__exam;if(!ex)return;let score=0;ex.chosen.forEach((q,i)=>{const c=document.querySelector('input[name="exam-'+i+'"]:checked');if(c&&Number(c.value)===q[2])score++});const d=read();d.results.push({lesson:'Závěrečný test '+ex.level,level:ex.level,score,date:day()});d.xp+=score*2;activity();save(d);const f=document.getElementById('exam-result');if(score>=8){f.innerHTML='Výsledek: '+score+'/10. <strong>Úspěšně dokončeno!</strong><br><button class="btn primary" onclick="printCertificate()">Vytisknout potvrzení</button>';window.__certificate={level:ex.level,score,date:new Date().toLocaleDateString('cs-CZ')}}else f.textContent='Výsledek: '+score+'/10. Na potvrzení potřebuješ alespoň 8/10. Zopakuj lekce a zkus to znovu.';document.querySelectorAll('#exam-active-view input').forEach(x=>x.disabled=true)};
 window.printCertificate=function(){const c=window.__certificate;if(!c)return;const w=window.open('','_blank','width=850,height=650');if(!w){alert('Pro tisk povol vyskakovací okna.');return}w.document.write('<!doctype html><html lang="cs"><head><meta charset="utf-8"><title>Potvrzení o procvičení</title><style>body{font-family:Georgia,serif;text-align:center;padding:70px;color:#17324d}main{border:8px double #c83d3d;padding:55px}h1{font-size:38px}p{font-size:20px}.small{font-size:12px}</style></head><body><main><h1>Potvrzení o procvičení španělštiny</h1><p>Úspěšně dokončen orientační test úrovně <strong>'+c.level+'</strong></p><p>Výsledek: <strong>'+c.score+'/10</strong></p><p>Datum: '+c.date+'</p><p class="small">Nejde o oficiální jazykový certifikát ani akreditovanou zkoušku.</p></main><script>window.onload=function(){window.print()}<\/script>
+
+</body></html>');w.document.close()};
+const side=document.querySelector('.sidebar');if(side&&!document.getElementById('training-nav')){const lab=document.createElement('div');lab.className='navlabel';lab.textContent='Trénink';const b=document.createElement('button');b.id='training-nav';b.className='level';b.innerHTML='<strong>🎯 Denní mise a trénink</strong><span>→</span>';b.onclick=window.showLearningHub;const first=side.querySelector('.navlabel');first.parentNode.insertBefore(lab,first);lab.after(b)}
+const oldMark=window.markFlash;window.markFlash=function(known){const d=read(),idx=flashIndex;if(known&&!d.known.includes(idx)){d.known.push(idx);d.xp+=2;d.knownToday=(d.knownDate===day()?d.knownToday||0:0)+1;d.knownDate=day();activity();save(d)}return oldMark.apply(this,arguments)};
+})();
+</script>
+
 <script>
 (function(){
  function addSpainDiscovery(){
@@ -485,12 +492,6 @@ window.printCertificate=function(){const c=window.__certificate;if(!c)return;con
   hero.insertAdjacentElement('afterend',section);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addSpainDiscovery);else addSpainDiscovery();
-})();
-</script>
-
-</body></html>');w.document.close()};
-const side=document.querySelector('.sidebar');if(side&&!document.getElementById('training-nav')){const lab=document.createElement('div');lab.className='navlabel';lab.textContent='Trénink';const b=document.createElement('button');b.id='training-nav';b.className='level';b.innerHTML='<strong>🎯 Denní mise a trénink</strong><span>→</span>';b.onclick=window.showLearningHub;const first=side.querySelector('.navlabel');first.parentNode.insertBefore(lab,first);lab.after(b)}
-const oldMark=window.markFlash;window.markFlash=function(known){const d=read(),idx=flashIndex;if(known&&!d.known.includes(idx)){d.known.push(idx);d.xp+=2;d.knownToday=(d.knownDate===day()?d.knownToday||0:0)+1;d.knownDate=day();activity();save(d)}return oldMark.apply(this,arguments)};
 })();
 </script>
 </body></html>
