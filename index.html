@@ -303,9 +303,33 @@ button:hover{filter:brightness(1.02)}
 @media(max-width:900px){.discovery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.discovery-heading{align-items:start;flex-direction:column}}
 @media(max-width:480px){.discovery-city{min-height:125px;padding:13px}.city-name{font-size:18px}.spain-hero:after{right:12px;bottom:12px;font-size:9px}}
 
+
+/* Interaktivní rozšíření Español — verze 1.7 */
+#learn-plus{margin:28px 0 36px;padding:clamp(18px,3vw,30px);border:1px solid rgba(125,211,252,.22);border-radius:24px;background:linear-gradient(145deg,rgba(18,37,65,.92),rgba(10,20,38,.96));box-shadow:0 18px 45px #0002}
+#learn-plus .lp-kicker{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#7dd3fc;font-weight:800}
+#learn-plus h2{margin:4px 0 8px;font-size:clamp(24px,3vw,34px);line-height:1.2;color:#f4f7ff}
+#learn-plus .lp-intro{color:#a4bad7;margin:0 0 20px}
+#learn-plus .lp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#learn-plus .lp-card{padding:18px;border-radius:17px;border:1px solid rgba(125,211,252,.18);background:rgba(255,255,255,.035);min-width:0}
+#learn-plus h3{font-size:1.08rem;margin:0 0 7px;color:#f4f7ff}
+#learn-plus p{margin:6px 0;color:#b8c9df}
+#learn-plus button{cursor:pointer;border:1px solid rgba(125,211,252,.32);border-radius:11px;padding:9px 12px;background:#172e4b;color:#f2f7ff;font-weight:650;margin:5px 5px 0 0}
+#learn-plus button:hover{background:#214365;border-color:#7dd3fc}
+#learn-plus button:focus-visible{outline:3px solid #f6c177;outline-offset:3px}
+#learn-plus .lp-city{display:inline-flex;flex-direction:column;text-align:left;min-width:calc(50% - 10px);vertical-align:top}
+#learn-plus .lp-city small{color:#a4bad7;font-weight:400}
+#learn-plus .lp-result{margin-top:12px;padding:12px;border-radius:12px;background:rgba(125,211,252,.08);color:#e8f1ff;min-height:48px}
+#learn-plus .lp-progress{height:7px;background:#25344a;border-radius:9px;overflow:hidden;margin:10px 0}
+#learn-plus .lp-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7dd3fc,#c4b5fd);transition:width .25s}
+#learn-plus .lp-word{font-size:1.5rem;font-weight:800;color:#fff;margin:8px 0}
+#learn-plus .lp-muted{font-size:.86rem;color:#a4bad7}
+#learn-plus .lp-awards{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+#learn-plus .lp-award{border:1px solid #8e784b;background:#44351f;color:#ffe5a6;border-radius:99px;padding:5px 9px;font-size:.8rem}
+@media(max-width:650px){#learn-plus .lp-grid{grid-template-columns:1fr}#learn-plus .lp-card{padding:15px}}
+
 </style></head><body>
 <button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰ Menu</button><aside class="sidebar"><div class="brand"><small>Mi cuaderno</small><h2>Español ✦</h2><p>Španělština krok za krokem</p></div><div class="navlabel">Vyber si úroveň</div><div id="levels"></div><div class="navlabel">Video výuka</div><button class="level" onclick="showVideos()"><strong>Video tutoriály</strong><span>→</span></button><div class="navlabel">Procvičování</div><button class="level" onclick="showFlashcards()"><strong>Slovíčka na kartičkách</strong><span>→</span></button><div class="navlabel">Základy pro každého</div><button class="level" onclick="showLesson('alphabet',null,'Základy')"><strong>🔤 Výslovnost a abeceda</strong><span>→</span></button><button class="level" onclick="showLesson('rules',null,'Základy')"><strong>📚 Základní pravidla</strong><span>→</span></button><div class="sidefoot">Uč se vlastním tempem · ¡Vamos!</div></aside>
-<main class="main"><div class="topline"><span>INTERAKTIVNÍ UČEBNICE · ČEŠTINA → ESPAÑOL</span><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill" id="site-version" title="Verze načtená v této stránce">VERZE 1.6</span><span class="pill" id="crumb">Přehled všech úrovní</span></span></div><section class="hero spain-hero"><div class="hero-copy"><div class="eyebrow">¡Bienvenido a tu viaje lingüístico!</div><h1>Španělština<br><span class="gradient">Od základů až po plynulost</span></h1><p>Uč se španělsky snadno, přehledně a vlastním tempem. Ať už jsi úplný začátečník, nebo chceš zdokonalit svou úroveň.</p><div class="actions"><button class="btn primary" onclick="openLevel('A1')">Začít s výukou →</button></div></div><div class="spain-photo" role="img" aria-label="Španělská architektura a slunečná atmosféra Španělska"></div></section><div class="stats"><button class="stat stat-link" onclick="openLevel(\'A1\')"><strong>6 úrovní</strong><span>Od začátečníka po pokročilého · klikni a vyber</span></button><button class="stat stat-link" onclick="showLesson(\'alphabet\',null,\'Základy\')"><strong>Výslovnost</strong><span>Jak se písmena a slova čtou · otevřít</span></button><button class="stat stat-link" onclick="showLesson(\'rules\',null,\'Základy\')"><strong>Příklady</strong><span>Pravidla rovnou v praxi · otevřít</span></button></div><div id="content"><section id="overview" class="lesson show"><div class="section-head"><h2>Vyber svou cestu</h2><p>Každá úroveň obsahuje témata, která se můžeš učit postupně. Klikni na úroveň a otevři její lekce.</p></div><div class="cards"><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A1')"><span class="tag">A1 · Začátečník</span><h3>První slova a věty</h3><p>Výslovnost, pozdravy, představování, členy, rod a přítomný čas.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A2')"><span class="tag">A2 · Mírně pokročilý</span><h3>Rozmluv se</h3><p>Minulost, budoucnost, delší věty, zájmena a každodenní situace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B1')"><span class="tag">B1 · Středně pokročilý</span><h3>Vyprávěj a vysvětluj</h3><p>Vyprávění, spojky, subjuntiv v základech a vyjádření názorů.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B2')"><span class="tag">B2 · Vyšší střední</span><h3>Mluv přirozeněji</h3><p>Složitější souvětí, podmiňovací způsob, pasivum a nuance významu.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C1')"><span class="tag">C1 · Pokročilý</span><h3>Jazyk do hloubky</h3><p>Stylistika, idiomy, formální jazyk, jemné rozdíly a argumentace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C2')"><span class="tag">C2 · Téměř rodilý</span><h3>Přesnost a nuance</h3><p>Pokročilé idiomy, regionální rozdíly, styl a velmi přesné vyjadřování.</p></button></div><div class="callout"><strong>Tip:</strong> Výslovnost psaná česky je pouze přibližná. Poslech rodilých mluvčích pomůže doladit zvuky, které čeština nemá.</div></section><div id="dynamic"></div></div><div class="footer">Español · Učební pomůcka v češtině. Výslovnost je orientační; některé zvuky a slovní zásoba se liší podle země a regionu.</div></main>
+<main class="main"><div class="topline"><span>INTERAKTIVNÍ UČEBNICE · ČEŠTINA → ESPAÑOL</span><span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="pill" id="site-version" title="Verze načtená v této stránce">VERZE 1.7</span><span class="pill" id="crumb">Přehled všech úrovní</span></span></div><section class="hero spain-hero"><div class="hero-copy"><div class="eyebrow">¡Bienvenido a tu viaje lingüístico!</div><h1>Španělština<br><span class="gradient">Od základů až po plynulost</span></h1><p>Uč se španělsky snadno, přehledně a vlastním tempem. Ať už jsi úplný začátečník, nebo chceš zdokonalit svou úroveň.</p><div class="actions"><button class="btn primary" onclick="openLevel('A1')">Začít s výukou →</button></div></div><div class="spain-photo" role="img" aria-label="Španělská architektura a slunečná atmosféra Španělska"></div></section><div class="stats"><button class="stat stat-link" onclick="openLevel(\'A1\')"><strong>6 úrovní</strong><span>Od začátečníka po pokročilého · klikni a vyber</span></button><button class="stat stat-link" onclick="showLesson(\'alphabet\',null,\'Základy\')"><strong>Výslovnost</strong><span>Jak se písmena a slova čtou · otevřít</span></button><button class="stat stat-link" onclick="showLesson(\'rules\',null,\'Základy\')"><strong>Příklady</strong><span>Pravidla rovnou v praxi · otevřít</span></button></div><div id="content"><section id="overview" class="lesson show"><div class="section-head"><h2>Vyber svou cestu</h2><p>Každá úroveň obsahuje témata, která se můžeš učit postupně. Klikni na úroveň a otevři její lekce.</p></div><div class="cards"><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A1')"><span class="tag">A1 · Začátečník</span><h3>První slova a věty</h3><p>Výslovnost, pozdravy, představování, členy, rod a přítomný čas.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A2')"><span class="tag">A2 · Mírně pokročilý</span><h3>Rozmluv se</h3><p>Minulost, budoucnost, delší věty, zájmena a každodenní situace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B1')"><span class="tag">B1 · Středně pokročilý</span><h3>Vyprávěj a vysvětluj</h3><p>Vyprávění, spojky, subjuntiv v základech a vyjádření názorů.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B2')"><span class="tag">B2 · Vyšší střední</span><h3>Mluv přirozeněji</h3><p>Složitější souvětí, podmiňovací způsob, pasivum a nuance významu.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C1')"><span class="tag">C1 · Pokročilý</span><h3>Jazyk do hloubky</h3><p>Stylistika, idiomy, formální jazyk, jemné rozdíly a argumentace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C2')"><span class="tag">C2 · Téměř rodilý</span><h3>Přesnost a nuance</h3><p>Pokročilé idiomy, regionální rozdíly, styl a velmi přesné vyjadřování.</p></button></div><div class="callout"><strong>Tip:</strong> Výslovnost psaná česky je pouze přibližná. Poslech rodilých mluvčích pomůže doladit zvuky, které čeština nemá.</div></section><div id="dynamic"></div></div><div class="footer">Español · Učební pomůcka v češtině. Výslovnost je orientační; některé zvuky a slovní zásoba se liší podle země a regionu.</div></main>
 <script>
 const curriculum={
 A1:{name:"Začátečník",desc:"První slova, jednoduché věty a základní komunikace.",topics:[["Abeceda a výslovnost","alphabet"],["Pozdravy a představování","greetings"],["Osobní zájmena","pronouns"],["Členy a rod podstatných jmen","articles"],["Sloveso ser a estar","serestar"],["Přítomný čas pravidelných sloves","present"],["Čísla, datum a čas","numbers"],["Tvoření otázek a záporu","questions"],["Základní slovní zásoba","vocab"],["Mini procvičování","quiz"]]},
@@ -494,4 +518,70 @@ const oldMark=window.markFlash;window.markFlash=function(known){const d=read(),i
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addSpainDiscovery);else addSpainDiscovery();
 })();
 </script>
+
+<script>
+(function(){
+ function initLearningPlus(){
+  if(document.getElementById('learn-plus'))return;
+  const after=document.getElementById('spain-discovery')||document.querySelector('.spain-hero');
+  if(!after)return;
+  const root=document.createElement('section');root.id='learn-plus';root.setAttribute('aria-label','Interaktivní španělský trénink');
+  root.innerHTML=`
+   <div class="lp-kicker">Tu español, cada día</div><h2>Uč se. Objevuj. Postupuj.</h2>
+   <p class="lp-intro">Krátké aktivity, které můžeš plnit vlastním tempem. Tvůj pokrok se ukládá v tomto prohlížeči.</p>
+   <div class="lp-grid">
+    <article class="lp-card"><h3>🗺️ Objevuj Španělsko</h3><p>Vyber město a poznej jeho atmosféru i užitečnou frázi.</p>
+     <button class="lp-city" data-city="Sevilla">🏛️ Sevilla<small>Andalusie · jih</small></button><button class="lp-city" data-city="Madrid">🏙️ Madrid<small>Hlavní město</small></button><button class="lp-city" data-city="Granada">🕌 Granada<small>Historie a Alhambra</small></button><button class="lp-city" data-city="Barcelona">🌊 Barcelona<small>Katalánsko · pobřeží</small></button>
+     <div class="lp-result" id="lp-city-result" aria-live="polite">Vyber město a otevři jeho jazykovou mini výpravu.</div>
+    </article>
+    <article class="lp-card"><h3>🏅 Tvoje cesta a odměny</h3><p>Za každou dokončenou mini aktivitu získáš 10 XP. Sbírej odznaky za pravidelné procvičování.</p><div><strong id="lp-xp">0 XP</strong><span class="lp-muted"> · lokálně uložený pokrok</span></div><div class="lp-progress"><span id="lp-progress"></span></div><div id="lp-awards" class="lp-awards"><span class="lp-muted">Dokonči aktivitu a získej první odznak.</span></div><button id="lp-daily">Splnit dnešní výzvu (+10 XP)</button><div class="lp-result" id="lp-daily-result" aria-live="polite">Výzva: řekni španělsky „Každý den se učím španělsky.“</div></article>
+    <article class="lp-card"><h3>🧠 Chytré opakování</h3><p>Nejdřív si zkus vybavit překlad, potom si ho odhal. Slova, která ještě neznáš, se vrátí dřív.</p><div class="lp-muted" id="lp-card-count"></div><div class="lp-word" id="lp-word">el viaje</div><p id="lp-meaning">Zkus si vzpomenout na český význam.</p><button id="lp-reveal">Ukázat překlad</button><button id="lp-know">Znám (+10 XP)</button><button id="lp-again">Zopakovat brzy</button></article>
+    <article class="lp-card"><h3>💬 Situace ze života</h3><p id="lp-dialogue-scene">V kavárně: číšník se ptá, co si dáš.</p><div id="lp-dialogue-options"></div><div class="lp-result" id="lp-dialogue-result" aria-live="polite">Vyber odpověď ve španělštině.</div><button id="lp-next-dialogue">Další situace</button></article>
+   </div>`;
+  after.insertAdjacentElement('afterend',root);
+  const key='espanolLearningPlusV1';
+  const vocab=[['el viaje','cesta'],['la estación','nádraží / stanice'],['la habitación','pokoj'],['¿Cuánto cuesta?','Kolik to stojí?'],['Quisiera un café, por favor.','Dal(a) bych si kávu, prosím.'],['Estoy aprendiendo español.','Učím se španělsky.'],['la calle','ulice'],['¿Dónde está el baño?','Kde je toaleta?'],['tener hambre','mít hlad'],['mañana','zítra / ráno']];
+  const cities={Sevilla:['Andaluské město známé historickým centrem.','Estoy en Sevilla. — Jsem v Seville.'],Madrid:['Španělská metropole s rušnými náměstími a muzei.','Quiero visitar Madrid. — Chci navštívit Madrid.'],Granada:['Město proslulé palácovým komplexem Alhambra.','La Alhambra es preciosa. — Alhambra je nádherná.'],Barcelona:['Katalánské město s výraznou architekturou a pobřežím.','Quiero pasear por Barcelona. — Chci se projít po Barceloně.']};
+  const dialogues=[
+   {scene:'V kavárně: číšník se ptá „¿Qué desea?“ (Co si přejete?)',opts:['Quisiera un café, por favor.','Tengo una habitación.','¿Dónde está la estación?'],correct:0,why:'Správně! „Quisiera un café, por favor“ znamená „Dal(a) bych si kávu, prosím.“'},
+   {scene:'Na nádraží chceš zjistit, kde je pokladna.',opts:['Estoy cansado.','¿Dónde está la taquilla?','Me llamo Ana.'],correct:1,why:'Přesně tak: „¿Dónde está la taquilla?“ znamená „Kde je pokladna?“'},
+   {scene:'Představuješ se novému známému.',opts:['La cuenta, por favor.','Tengo frío.','Hola, me llamo…'],correct:2,why:'Správně: „Hola, me llamo…“ — „Ahoj, jmenuji se…“'},
+   {scene:'V restauraci chceš požádat o účet.',opts:['La cuenta, por favor.','Un billete, por favor.','Estoy perdido.'],correct:0,why:'Ano! „La cuenta, por favor“ znamená „Účet, prosím.“'}
+  ];
+  let state={xp:0,day:'',daily:false,known:[],due:[],idx:0,dialogue:0,answered:[]};
+  try{const old=JSON.parse(localStorage.getItem(key)||'null');if(old&&typeof old==='object')state={...state,...old}}catch(e){}
+  const today=new Date().toLocaleDateString('sv-SE');
+  if(state.day!==today){state.day=today;state.daily=false;}
+  function save(){try{localStorage.setItem(key,JSON.stringify(state))}catch(e){}render()}
+  function award(n){state.xp+=n}
+  function render(){
+   root.querySelector('#lp-xp').textContent=state.xp+' XP';
+   root.querySelector('#lp-progress').style.width=(state.xp%100)+'%';
+   const awards=[];if(state.xp>=10)awards.push('🌱 První kroky');if(state.xp>=50)awards.push('🔥 Nadšenec');if(state.xp>=100)awards.push('🏆 Španělský objevitel');
+   root.querySelector('#lp-awards').innerHTML=awards.length?awards.map(x=>'<span class="lp-award">'+x+'</span>').join(''):'<span class="lp-muted">Dokonči aktivitu a získej první odznak.</span>';
+   root.querySelector('#lp-daily').disabled=state.daily;
+   root.querySelector('#lp-daily').textContent=state.daily?'Dnešní výzva splněna ✓':'Splnit dnešní výzvu (+10 XP)';
+   root.querySelector('#lp-card-count').textContent='Slovíčko '+(state.idx+1)+' z '+vocab.length+' · '+state.known.length+' známých';
+   root.querySelector('#lp-word').textContent=vocab[state.idx][0];
+   root.querySelector('#lp-meaning').textContent=state.revealed?vocab[state.idx][1]:'Zkus si vzpomenout na český význam.';
+   root.querySelector('#lp-reveal').textContent=state.revealed?'Překlad zobrazen':'Ukázat překlad';
+   const d=dialogues[state.dialogue];
+   root.querySelector('#lp-dialogue-scene').textContent=d.scene;
+   root.querySelector('#lp-dialogue-options').innerHTML=d.opts.map((x,i)=>'<button data-answer="'+i+'">'+x+'</button>').join('');
+   root.querySelectorAll('#lp-dialogue-options button').forEach(b=>{b.disabled=state.answered.includes(state.dialogue);});
+   if(!state.answered.includes(state.dialogue))root.querySelector('#lp-dialogue-result').textContent='Vyber odpověď ve španělštině.';
+  }
+  root.querySelectorAll('[data-city]').forEach(b=>b.addEventListener('click',()=>{const c=cities[b.dataset.city];root.querySelector('#lp-city-result').innerHTML='<strong>'+b.dataset.city+':</strong> '+c[0]+'<br><em>'+c[1]+'</em><br><button id="lp-map-link">Prozkoumat na mapě ↗</button>';root.querySelector('#lp-map-link').addEventListener('click',()=>window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(b.dataset.city+' España'),'_blank','noopener'));}));
+  root.querySelector('#lp-daily').addEventListener('click',()=>{if(state.daily)return;state.daily=true;award(10);save();root.querySelector('#lp-daily-result').textContent='¡Cada día estudio español! — Každý den se učím španělsky. Výborně!'});
+  root.querySelector('#lp-reveal').addEventListener('click',()=>{state.revealed=true;root.querySelector('#lp-meaning').textContent=vocab[state.idx][1];root.querySelector('#lp-reveal').textContent='Překlad zobrazen';});
+  root.querySelector('#lp-know').addEventListener('click',()=>{if(!state.known.includes(state.idx)){state.known.push(state.idx);award(10)}state.revealed=false;state.idx=(state.due.length?state.due.shift():(state.idx+1)%vocab.length);save()});
+  root.querySelector('#lp-again').addEventListener('click',()=>{state.due.push(state.idx);state.revealed=false;state.idx=(state.idx+1)%vocab.length;save()});
+  root.querySelector('#lp-dialogue-options').addEventListener('click',e=>{const b=e.target.closest('[data-answer]');if(!b)return;const d=dialogues[state.dialogue],i=Number(b.dataset.answer);if(i===d.correct&&!state.answered.includes(state.dialogue)){award(10);state.answered.push(state.dialogue)}root.querySelector('#lp-dialogue-result').textContent=(i===d.correct?'✓ ':'✕ ')+d.why;root.querySelectorAll('#lp-dialogue-options button').forEach((x,j)=>{x.disabled=true;if(j===d.correct)x.style.borderColor='#86efac';if(j===i&&i!==d.correct)x.style.borderColor='#fca5a5'});save()});
+  root.querySelector('#lp-next-dialogue').addEventListener('click',()=>{state.dialogue=(state.dialogue+1)%dialogues.length;save();root.querySelector('#lp-dialogue-result').textContent='Vyber odpověď ve španělštině.'});
+  render();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initLearningPlus);else initLearningPlus();
+})();
+</script>
+
 </body></html>
