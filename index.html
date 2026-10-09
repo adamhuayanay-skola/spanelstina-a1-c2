@@ -120,4 +120,51 @@ function resetFlashcards(){flashIndex=0;flashRevealed=false;flashKnown.clear();r
 buildNav();
 document.addEventListener('click',function(event){const sidebar=document.querySelector('.sidebar');const toggle=document.querySelector('.menu-toggle');if(sidebar.classList.contains('open')&&!sidebar.contains(event.target)&&!toggle.contains(event.target)){sidebar.classList.remove('open')}});
 
-</script></body></html>
+</script>
+<style>
+.progress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}.progress-stat{padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(15,31,55,.72)}.progress-stat strong{display:block;font-size:1.65rem;color:var(--cyan)}.progress-stat span{color:var(--muted);font-size:.9rem}.progress-track{height:9px;background:rgba(164,186,215,.18);border-radius:20px;overflow:hidden;margin:10px 0}.progress-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));width:0;transition:width .25s}.review-word{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.review-word:last-child{border-bottom:0}
+</style>
+<script>
+(function(){
+const STORE='espanolStudyProgressV1';
+function read(){try{return JSON.parse(localStorage.getItem(STORE))||{completed:{},results:[],known:[],missed:[],days:[],xp:0}}catch(e){return {completed:{},results:[],known:[],missed:[],days:[],xp:0}}}
+function save(d){try{localStorage.setItem(STORE,JSON.stringify(d))}catch(e){}}
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function totalLessons(){return Object.values(curriculum).reduce((n,l)=>n+l.topics.length,0)}
+function streak(days){const set=new Set(days),d=new Date();let n=0;for(let i=0;i<370;i++){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(!set.has(k)){if(i===0)n=0;break}n++;d.setDate(d.getDate()-1)}return n}
+window.showProgress=function(){
+document.querySelectorAll('.lesson').forEach(x=>x.classList.remove('show'));
+let s=document.getElementById('progress-view');if(!s){s=document.createElement('section');s.id='progress-view';s.className='lesson';document.getElementById('dynamic').appendChild(s)}
+const d=read(),done=Object.keys(d.completed).length,total=totalLessons(),pct=Math.round(done/total*100),due=(window.flashWords||[]).filter((w,i)=>!d.known.includes(i)||d.reviewAgain&&d.reviewAgain.includes(i));
+s.innerHTML='<div class="section-head"><span class="tag">TVŮJ STUDIJNÍ DENÍK</span><h2>Můj pokrok</h2><p>Pokrok se ukládá v tomto prohlížeči na tomto zařízení.</p></div><div class="progress-grid"><div class="progress-stat"><strong>'+done+'/'+total+'</strong><span>Splněné lekce</span></div><div class="progress-stat"><strong>'+d.xp+'</strong><span>XP za učení</span></div><div class="progress-stat"><strong>'+streak(d.days)+'</strong><span>Denní série 🔥</span></div><div class="progress-stat"><strong>'+d.results.length+'</strong><span>Dokončené testy</span></div></div><div class="card"><h3>Celkový postup</h3><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div><p>'+pct+' % učebnice · '+(total-done)+' lekcí zbývá</p><div class="actions"><button class="btn primary" onclick="openLevel(\'A1\')">Pokračovat v učení</button><button class="btn" onclick="showReviewWords()">Opakovat slovíčka ('+Math.max(0,(window.flashWords||[]).length-d.known.length)+')</button></div></div><div class="card"><h3>Poslední výsledky</h3>'+(d.results.length?d.results.slice(-5).reverse().map(r=>'<div class="review-word"><span>'+r.lesson+'</span><strong>'+r.score+'/10</strong></div>').join(''):'<p>Zatím žádné výsledky. Otevři lekci a splň její test — tady se objeví tvůj pokrok.</p>')+'</div><div class="card"><h3>Otázky k zopakování</h3>'+(d.missed.length?d.missed.slice(-5).reverse().map(q=>'<div class="review-word"><span>'+q+'</span><span>↻</span></div>').join(''):'<p>Skvělé! Zatím tu nejsou uložené žádné chybné odpovědi.</p>')+'</div>';
+s.classList.add('show');document.getElementById('crumb').textContent='Můj pokrok';window.scrollTo({top:0,behavior:'smooth'});
+};
+window.showReviewWords=function(){
+document.querySelectorAll('.lesson').forEach(x=>x.classList.remove('show'));let s=document.getElementById('word-review-view');if(!s){s=document.createElement('section');s.id='word-review-view';s.className='lesson';document.getElementById('dynamic').appendChild(s)}
+const d=read(),words=window.flashWords||[],order=words.map((w,i)=>({w,i})).filter(x=>!d.known.includes(x.i));
+s.innerHTML='<div class="section-head"><span class="tag">CHYTRÉ OPAKOVÁNÍ</span><h2>Slovíčka, která ještě neumíš</h2><p>Označ známá slovíčka a při příští návštěvě se zaměř na zbytek. Stav se ukládá v prohlížeči.</p></div><div class="card">'+(order.length?order.map(x=>'<div class="review-word"><span><strong>'+x.w[0]+'</strong><br><span style="color:var(--muted)">'+x.w[1]+'</span></span><button class="btn" onclick="markReviewKnown('+x.i+')">Už umím ✓</button></div>').join(''):'<h3>¡Excelente! Znáš všechna slovíčka v této sadě.</h3>')+'<div class="actions"><button class="btn" onclick="showProgress()">← Můj pokrok</button><button class="btn" onclick="showFlashcards()">Otevřít kartičky</button></div></div>';
+s.classList.add('show');document.getElementById('crumb').textContent='Chytré opakování';window.scrollTo({top:0,behavior:'smooth'});
+};
+window.markReviewKnown=function(i){const d=read();if(!d.known.includes(i))d.known.push(i);d.xp+=2;save(d);showReviewWords()};
+const originalShowLesson=window.showLesson;
+window.showLesson=function(id,el,level){window.__currentStudy={id:id,level:level||'Základy',title:(lessons[id]&&lessons[id][0])||id};return originalShowLesson.apply(this,arguments)};
+const originalCheck=window.checkLessonTest;
+window.checkLessonTest=function(){
+const qs=[...document.querySelectorAll('.lesson-test .test-question')],title=(window.__currentStudy&&window.__currentStudy.title)||'Lekce',level=(window.__currentStudy&&window.__currentStudy.level)||'Základy';
+const score=qs.reduce((n,q)=>{const c=q.querySelector('input:checked');return n+(c&&Number(c.value)===Number(q.dataset.correct)?1:0)},0);
+const d=read();d.results.push({lesson:title,level:level,score:score,date:today()});d.xp+=score*2+5;
+if(score>=7&&window.__currentStudy)d.completed[(window.__currentStudy.level||'Základy')+':'+window.__currentStudy.id]=true;
+if(!d.days.includes(today()))d.days.push(today());
+qs.forEach(q=>{const c=q.querySelector('input:checked');if(c&&Number(c.value)!==Number(q.dataset.correct)){const t=q.querySelector('h4');if(t&&!d.missed.includes(t.textContent.replace(/^\d+\.\s*/,'')))d.missed.push(t.textContent.replace(/^\d+\.\s*/,''))}});
+save(d);const out=originalCheck.apply(this,arguments);
+const result=document.getElementById('test-result');if(result)result.textContent+=' · +'+(score*2+5)+' XP'+(score>=7?' · Lekce splněna!':' · Pro splnění lekce je potřeba alespoň 7/10.');
+return out
+};
+const oldMark=window.markFlash;
+window.markFlash=function(known){const idx=window.flashIndex,d=read();if(known){if(!d.known.includes(idx))d.known.push(idx);d.xp+=2}else{d.known=d.known.filter(i=>i!==idx)}save(d);return oldMark.apply(this,arguments)};
+document.addEventListener('DOMContentLoaded',function(){});
+const side=document.querySelector('.sidebar .sidefoot');
+if(side&&!document.getElementById('progress-nav')){const b=document.createElement('button');b.id='progress-nav';b.className='level';b.style.marginBottom='14px';b.innerHTML='<strong>📈 Můj pokrok</strong><span>→</span>';b.onclick=showProgress;side.parentNode.insertBefore(b,side)}
+})();
+</script>
+</body></html>
