@@ -135,7 +135,7 @@ function streak(days){const set=new Set(days),d=new Date();let n=0;for(let i=0;i
 window.showProgress=function(){
 document.querySelectorAll('.lesson').forEach(x=>x.classList.remove('show'));
 let s=document.getElementById('progress-view');if(!s){s=document.createElement('section');s.id='progress-view';s.className='lesson';document.getElementById('dynamic').appendChild(s)}
-const d=read(),done=Object.keys(d.completed).length,total=totalLessons(),pct=Math.round(done/total*100),due=(window.flashWords||[]).filter((w,i)=>!d.known.includes(i)||d.reviewAgain&&d.reviewAgain.includes(i));
+const d=read(),done=Object.keys(d.completed).length,total=totalLessons(),pct=Math.round(done/total*100),due=(flashWords).filter((w,i)=>!d.known.includes(i)||d.reviewAgain&&d.reviewAgain.includes(i));
 s.innerHTML='<div class="section-head"><span class="tag">TVŮJ STUDIJNÍ DENÍK</span><h2>Můj pokrok</h2><p>Pokrok se ukládá v tomto prohlížeči na tomto zařízení.</p></div><div class="progress-grid"><div class="progress-stat"><strong>'+done+'/'+total+'</strong><span>Splněné lekce</span></div><div class="progress-stat"><strong>'+d.xp+'</strong><span>XP za učení</span></div><div class="progress-stat"><strong>'+streak(d.days)+'</strong><span>Denní série 🔥</span></div><div class="progress-stat"><strong>'+d.results.length+'</strong><span>Dokončené testy</span></div></div><div class="card"><h3>Celkový postup</h3><div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div><p>'+pct+' % učebnice · '+(total-done)+' lekcí zbývá</p><div class="actions"><button class="btn primary" onclick="openLevel(\'A1\')">Pokračovat v učení</button><button class="btn" onclick="showReviewWords()">Opakovat slovíčka ('+Math.max(0,(window.flashWords||[]).length-d.known.length)+')</button></div></div><div class="card"><h3>Poslední výsledky</h3>'+(d.results.length?d.results.slice(-5).reverse().map(r=>'<div class="review-word"><span>'+r.lesson+'</span><strong>'+r.score+'/10</strong></div>').join(''):'<p>Zatím žádné výsledky. Otevři lekci a splň její test — tady se objeví tvůj pokrok.</p>')+'</div><div class="card"><h3>Otázky k zopakování</h3>'+(d.missed.length?d.missed.slice(-5).reverse().map(q=>'<div class="review-word"><span>'+q+'</span><span>↻</span></div>').join(''):'<p>Skvělé! Zatím tu nejsou uložené žádné chybné odpovědi.</p>')+'</div>';
 s.classList.add('show');document.getElementById('crumb').textContent='Můj pokrok';window.scrollTo({top:0,behavior:'smooth'});
 };
@@ -161,7 +161,7 @@ const result=document.getElementById('test-result');if(result)result.textContent
 return out
 };
 const oldMark=window.markFlash;
-window.markFlash=function(known){const idx=window.flashIndex,d=read();if(known){if(!d.known.includes(idx))d.known.push(idx);d.xp+=2}else{d.known=d.known.filter(i=>i!==idx)}save(d);return oldMark.apply(this,arguments)};
+window.markFlash=function(known){const idx=flashIndex,d=read();if(known){if(!d.known.includes(idx))d.known.push(idx);d.xp+=2}else{d.known=d.known.filter(i=>i!==idx)}save(d);return oldMark.apply(this,arguments)};
 document.addEventListener('DOMContentLoaded',function(){});
 const side=document.querySelector('.sidebar .sidefoot');
 if(side&&!document.getElementById('progress-nav')){const b=document.createElement('button');b.id='progress-nav';b.className='level';b.style.marginBottom='14px';b.innerHTML='<strong>📈 Můj pokrok</strong><span>→</span>';b.onclick=showProgress;side.parentNode.insertBefore(b,side)}
