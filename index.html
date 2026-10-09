@@ -27,6 +27,56 @@ td{color:#344d63}th{color:#087e8b}td,th{border-bottom-color:rgba(19,52,79,.12)}
 .footer{border-top-color:rgba(19,52,79,.14);color:#708194}.menu-toggle{background:#17324d;color:white;border-color:rgba(255,255,255,.2)}
 .feedback{color:#087e8b}
 
+
+/* Vizuální facelift: jasnější hierarchie, více prostoru a jemné interakce */
+:root{--shadow-soft:0 14px 38px rgba(22,45,65,.085)}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{background-image:radial-gradient(circle at 1px 1px,rgba(19,52,79,.035) 1px,transparent 0),radial-gradient(ellipse at 8% 0%,#ffe8c9 0,transparent 34%),radial-gradient(ellipse at 96% 14%,#f9dfd8 0,transparent 31%),linear-gradient(155deg,#fffaf3,#f2f7f6 80%);background-size:22px 22px,auto,auto,auto}
+.sidebar{background:linear-gradient(180deg,#142d43 0%,#0f2438 65%,#0b1b2c 100%);box-shadow:8px 0 32px rgba(15,36,56,.12)}
+.brand{position:relative;padding:7px 12px 25px 16px;margin-bottom:15px;border-bottom:1px solid rgba(255,255,255,.12)}
+.brand:before{content:"🇪🇸";display:block;font-size:1.8rem;margin-bottom:8px;filter:drop-shadow(0 4px 8px #0002)}
+.brand h2{font-size:1.85rem;letter-spacing:-.04em}
+.brand p{margin-bottom:0}
+.main{max-width:none;padding-right:clamp(22px,4.2vw,72px);padding-left:clamp(22px,4.2vw,72px)}
+.topline{margin-bottom:10px}
+.pill{box-shadow:0 3px 12px rgba(8,126,139,.07)}
+.hero{position:relative;isolation:isolate;max-width:none;overflow:hidden;margin:12px 0 28px;padding:clamp(28px,4vw,52px);border-radius:26px;border:1px solid rgba(200,61,61,.11);background:linear-gradient(112deg,rgba(255,255,255,.97) 0%,rgba(255,250,242,.92) 60%,rgba(255,231,207,.8) 100%);box-shadow:0 18px 48px rgba(49,58,63,.08)}
+.hero:after{content:"¡Hola!";position:absolute;z-index:-1;right:2%;bottom:-.32em;font-size:clamp(6rem,18vw,15rem);font-weight:800;line-height:1;color:rgba(200,61,61,.055);letter-spacing:-.09em;pointer-events:none}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;background:#e7f5f1;border:1px solid #d3ebe4;letter-spacing:.1em}
+.hero h1{font-size:clamp(2.7rem,5.4vw,5.2rem);max-width:850px;margin:18px 0 14px}
+.hero p{max-width:700px;font-size:clamp(1rem,1.4vw,1.18rem);line-height:1.8}
+.actions{margin-top:23px}
+.btn{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(23,50,77,.1)}
+.btn.primary:hover{box-shadow:0 10px 25px rgba(200,61,61,.28)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #0c8b91;outline-offset:3px}
+.stats{gap:15px;margin:20px 0 42px}
+.stat,.card{border-radius:19px;box-shadow:var(--shadow-soft);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.stat{position:relative;overflow:hidden;padding:22px}
+.stat:after{content:"";position:absolute;right:-24px;top:-28px;width:88px;height:88px;border-radius:50%;background:rgba(255,209,102,.18)}
+.stat strong{position:relative;z-index:1;font-size:1.7rem;letter-spacing:-.035em}
+.stat span{position:relative;z-index:1;display:block;line-height:1.55}
+.stat-link:hover,.level-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(23,50,77,.12);border-color:rgba(8,126,139,.32)}
+.section-head{margin:42px 0 19px}
+.section-head h2{font-size:clamp(1.45rem,2vw,1.9rem);letter-spacing:-.035em}
+.section-head h2:before{content:"";display:inline-block;width:5px;height:1em;vertical-align:-.12em;margin-right:12px;border-radius:5px;background:linear-gradient(#c83d3d,#f0a04b)}
+.cards{gap:15px}
+.cards .card{padding:21px}
+.level-card{position:relative;overflow:hidden;min-height:160px;padding-top:22px!important}
+.level-card:after{content:"↗";position:absolute;right:18px;bottom:14px;display:grid;place-items:center;width:31px;height:31px;border-radius:50%;background:#e6f5f3;color:#087e8b;font-weight:800;opacity:.9}
+.level-card:nth-child(2n){background:linear-gradient(145deg,#fff,#f1fbfa)}
+.level-card:nth-child(3n){background:linear-gradient(145deg,#fff,#fff2e6)}
+.level-card .tag{display:inline-block;margin-bottom:10px}
+.card h3{letter-spacing:-.02em}
+.callout{box-shadow:0 8px 22px rgba(200,61,61,.04)}
+.flashcard{box-shadow:0 16px 38px rgba(19,52,79,.12);transition:transform .2s,box-shadow .2s,border-color .2s}
+.flashcard:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(19,52,79,.18)}
+.test-question{box-shadow:0 5px 16px rgba(23,50,77,.035)}
+.footer{padding:24px 0 10px}
+#training-nav{border-color:rgba(255,209,102,.18);background:linear-gradient(100deg,rgba(200,61,61,.18),rgba(255,209,102,.07))}
+@media(min-width:1200px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:300px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}}
+@media(max-width:800px){.main{padding:68px 16px 42px}.hero{border-radius:20px;padding:27px 22px;margin-top:5px}.hero:after{font-size:7rem;right:0}.hero h1{font-size:clamp(2.35rem,11vw,3.2rem)}.stats{gap:10px;margin-bottom:30px}.stat{padding:16px}.section-head{margin-top:32px}.cards{gap:11px}.cards .card{padding:17px}.level-card{min-height:unset}.brand:before{font-size:1.5rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style></head><body>
 <button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰ Menu</button><aside class="sidebar"><div class="brand"><small>Mi cuaderno</small><h2>Español ✦</h2><p>Španělština krok za krokem</p></div><div class="navlabel">Vyber si úroveň</div><div id="levels"></div><div class="navlabel">Video výuka</div><button class="level" onclick="showVideos()"><strong>Video tutoriály</strong><span>→</span></button><div class="navlabel">Procvičování</div><button class="level" onclick="showFlashcards()"><strong>Slovíčka na kartičkách</strong><span>→</span></button><div class="navlabel">Základy pro každého</div><button class="level" onclick="showLesson('alphabet',null,'Základy')"><strong>🔤 Výslovnost a abeceda</strong><span>→</span></button><button class="level" onclick="showLesson('rules',null,'Základy')"><strong>📚 Základní pravidla</strong><span>→</span></button><div class="sidefoot">Uč se vlastním tempem · ¡Vamos!</div></aside>
 <main class="main"><div class="topline"><span>INTERAKTIVNÍ UČEBNICE · ČEŠTINA → ESPAÑOL</span><span class="pill" id="crumb">Přehled všech úrovní</span></div><section class="hero"><div class="eyebrow">¡Hola! Vítej ve španělštině</div><h1>Nový jazyk.<br><span class="gradient">Nový svět.</span></h1><p>Od prvních španělských slov až po pokročilou gramatiku. Vyber si úroveň A1–C2 vlevo, otevři téma a uč se na příkladech s českým překladem i výslovností.</p><div class="actions"><button class="btn primary" onclick="openLevel('A1')">Začít od A1 →</button><button class="btn" onclick="showLesson('alphabet',null,'Základy')">Naučit se výslovnost</button></div></section><div class="stats"><button class="stat stat-link" onclick="openLevel(\'A1\')"><strong>6 úrovní</strong><span>Od začátečníka po pokročilého · klikni a vyber</span></button><button class="stat stat-link" onclick="showLesson(\'alphabet\',null,\'Základy\')"><strong>Výslovnost</strong><span>Jak se písmena a slova čtou · otevřít</span></button><button class="stat stat-link" onclick="showLesson(\'rules\',null,\'Základy\')"><strong>Příklady</strong><span>Pravidla rovnou v praxi · otevřít</span></button></div><div id="content"><section id="overview" class="lesson show"><div class="section-head"><h2>Vyber svou cestu</h2><p>Každá úroveň obsahuje témata, která se můžeš učit postupně. Klikni na úroveň a otevři její lekce.</p></div><div class="cards"><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A1')"><span class="tag">A1 · Začátečník</span><h3>První slova a věty</h3><p>Výslovnost, pozdravy, představování, členy, rod a přítomný čas.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('A2')"><span class="tag">A2 · Mírně pokročilý</span><h3>Rozmluv se</h3><p>Minulost, budoucnost, delší věty, zájmena a každodenní situace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B1')"><span class="tag">B1 · Středně pokročilý</span><h3>Vyprávěj a vysvětluj</h3><p>Vyprávění, spojky, subjuntiv v základech a vyjádření názorů.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('B2')"><span class="tag">B2 · Vyšší střední</span><h3>Mluv přirozeněji</h3><p>Složitější souvětí, podmiňovací způsob, pasivum a nuance významu.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C1')"><span class="tag">C1 · Pokročilý</span><h3>Jazyk do hloubky</h3><p>Stylistika, idiomy, formální jazyk, jemné rozdíly a argumentace.</p></button><button class="card level-card" style="text-align:left;cursor:pointer;color:inherit;width:100%;font:inherit" onclick="openLevel('C2')"><span class="tag">C2 · Téměř rodilý</span><h3>Přesnost a nuance</h3><p>Pokročilé idiomy, regionální rozdíly, styl a velmi přesné vyjadřování.</p></button></div><div class="callout"><strong>Tip:</strong> Výslovnost psaná česky je pouze přibližná. Poslech rodilých mluvčích pomůže doladit zvuky, které čeština nemá.</div></section><div id="dynamic"></div></div><div class="footer">Español · Učební pomůcka v češtině. Výslovnost je orientační; některé zvuky a slovní zásoba se liší podle země a regionu.</div></main>
